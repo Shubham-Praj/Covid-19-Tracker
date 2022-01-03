@@ -14,12 +14,17 @@ function App() {
     //Get Country and City list from covid data to create recommendation list
     async function getCountryCityList(data) {
       const cc = [];
+      const Countries = [];
+      const Cities = [];
+
       for (let i in data) {
         cc.push(i);
+        Countries.push(i);
 
         for (let j in data[i]) {
           if (j !== "All") {
             cc.push(j);
+            Cities.push(j);
           }
         }
       }
@@ -30,13 +35,30 @@ function App() {
       const res = await fetch(`${process.env.REACT_APP_NEWS_URL}`);
       const data = await res.json();
       setcovidData(data);
-      setsearchedValue(data.India.All);
+      setsearchedValue(data.India.Maharashtra);
       getCountryCityList(data);
     }
 
     getCovidData();
   }, []);
 
+  async function setSelectedData(clickedValue) {
+    console.log(clickedValue);
+
+    for (let i in covidData) {
+      if (i == clickedValue) {
+        setsearchedValue(covidData.i);
+        console.log(covidData[i].All);
+      } else {
+        for (let j in i) {
+          if (j === clickedValue) {
+            setsearchedValue(covidData.i.j);
+            console.log(covidData.i.j);
+          }
+        }
+      }
+    }
+  }
   //FilterList is function to filter country and city list
   //Filtered data is array where all the filtered data based on text is created
   function filterList(searchText) {
@@ -49,8 +71,6 @@ function App() {
     });
 
     setfilteredData(textFiltered);
-
-    console.log("dakjsdhksd", filteredData);
   }
 
   function clearFilteredData() {
@@ -64,6 +84,7 @@ function App() {
         filteredData={filteredData}
         filterList={filterList}
         clearFilteredData={clearFilteredData}
+        setSelectedData={setSelectedData}
       />
       <ChartSection data={searchedValue} />
     </div>

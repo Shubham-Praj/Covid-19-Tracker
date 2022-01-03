@@ -3,17 +3,20 @@ import "../index.css";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 function DataDiv({ data }) {
+  // const geogleLocation = `${
+  //   process.env.REACT_APP_GOOGLE_URL
+  // }/@${data.lat},${data.long},7.5z `;
+
   const geogleLocation = `${
     process.env.REACT_APP_GOOGLE_URL
-  }/@${23.7246351},${78.6154416},5.04z `;
+  }/@23.57,71.54,7.5z `;
 
-  console.log(geogleLocation);
 
   return (
     <div className="dataDiv">
       <div className="dataHeaders">
         <h1>
-          <b>India</b>
+          <b>{}</b>
         </h1>
         <h4>Asia</h4>
       </div>
@@ -35,16 +38,16 @@ function DataDiv({ data }) {
 
         <div className="values">
           <div className="valuesTextDiv">
-            <h4>{data.capital_city}</h4>
+            <h4>{ data.capital_city ? data.capital_city : "N/A" }</h4>
           </div>
           <div className="valuesTextDiv">
-            <h4>{data.population}</h4>
+            <h4>{data.population? data.population : "N/A"}</h4>
           </div>
           <div className="valuesTextDiv">
-            <h4>{data.life_expectancy}</h4>
+            <h4>{data.life_expectancy ? data.life_expectancy : "N/A"}</h4>
           </div>
           <div className="valuesTextDiv">
-            <h4>{data.location}</h4>
+            <h4>{data.location ? data.location : "N/A"}</h4>
           </div>
         </div>
       </div>

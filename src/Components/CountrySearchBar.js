@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
 
-function CountrySearchBar({ filteredData, filterList, clearFilteredData }) {
+function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSelectedData }) {
   const [searchText, setsearchText] = useState("");
 
-  function selectOption(e) {
-    setsearchText(e.target.innerText);
-    clearFilteredData();
-  };
 
+  //Filter on Typing
   function assignSearchText(text) {
     setsearchText(text);
     filterList(text);
+  }
+
+  //Clear the Collection after a selection
+  function selectOption(e) {
+    setsearchText(e.target.innerText);
+    setSelectedData(e.target.innerText);
+    clearFilteredData();
   }
 
   return (
