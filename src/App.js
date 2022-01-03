@@ -45,20 +45,22 @@ function App() {
   async function setSelectedData(clickedValue) {
     console.log(clickedValue);
 
-    for (let i in covidData) {
-      if (i == clickedValue) {
-        setsearchedValue(covidData.i);
-        console.log(covidData[i].All);
-      } else {
-        for (let j in i) {
-          if (j === clickedValue) {
-            setsearchedValue(covidData.i.j);
-            console.log(covidData.i.j);
-          }
-        }
-      }
-    }
+    // for (let i in covidData) {
+    //   if (i == clickedValue) {
+    //     setsearchedValue(covidData.i);
+    //     console.log(covidData[i].All);
+    //   } else {
+    //     for (let j in i) {
+    //       if (j === clickedValue) {
+    //         setsearchedValue(covidData.i.j);
+    //         console.log(covidData.i.j);
+    //       }
+    //     }
+    //   }
+    // }
   }
+
+  
   //FilterList is function to filter country and city list
   //Filtered data is array where all the filtered data based on text is created
   function filterList(searchText) {
