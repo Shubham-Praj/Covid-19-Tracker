@@ -52,7 +52,7 @@ function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSel
               .map((val, key) => {
                 return (
                   <div className="search-results" key={key}>
-                    <h5 style={{ marginBottom: "0px" }} onClick={selectOption}>
+                    <h5 style={{ marginBottom: "0px" ,cursor : "pointer" }} onClick={selectOption}>
                       {val}
                     </h5>
                   </div>

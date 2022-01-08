@@ -9,26 +9,29 @@ function App() {
   const [searchedValue, setsearchedValue] = useState([]);
   const [countryCity, setcountryCity] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
+  const [countries, setcountries] = useState([]);
+  const [cities, setcities] = useState([]);
 
   useEffect(() => {
+    const cc = [];
+    const CountriesList = [];
+    const CitiesList = [];
     //Get Country and City list from covid data to create recommendation list
     async function getCountryCityList(data) {
-      const cc = [];
-      const Countries = [];
-      const Cities = [];
-
       for (let i in data) {
         cc.push(i);
-        Countries.push(i);
+        CountriesList.push(i);
 
         for (let j in data[i]) {
           if (j !== "All") {
             cc.push(j);
-            Cities.push(j);
+            CitiesList.push(j);
           }
         }
       }
       setcountryCity(cc);
+      setcountries(CountriesList);
+      setcities(CitiesList);
     }
 
     async function getCovidData() {
@@ -44,23 +47,30 @@ function App() {
 
   async function setSelectedData(clickedValue) {
     console.log(clickedValue);
+    //console.log(covidData[clickedValue].All);
 
-    // for (let i in covidData) {
-    //   if (i == clickedValue) {
-    //     setsearchedValue(covidData.i);
-    //     console.log(covidData[i].All);
-    //   } else {
-    //     for (let j in i) {
-    //       if (j === clickedValue) {
-    //         setsearchedValue(covidData.i.j);
-    //         console.log(covidData.i.j);
-    //       }
-    //     }
-    //   }
-    // }
+    console.log(countries.includes(clickedValue));
+
+    if (countries.includes(clickedValue)) {
+      setsearchedValue(covidData[clickedValue].All);
+      console.log(covidData[clickedValue].All);
+    } else {
+      for (let i in countries) {
+        for (let j in cities) {
+          console.log(cities[j]);
+
+          if (cities[j] === clickedValue) {
+            // setsearchedValue(covidData[clickedValue][cities[j]]);
+            console.log("else", covidData[countries[i]]);
+            // console.log( "else" ,covidData[countries[i]].cities[j]);
+            break;
+          }
+        }
+        break;
+      }
+    }
   }
 
-  
   //FilterList is function to filter country and city list
   //Filtered data is array where all the filtered data based on text is created
   function filterList(searchText) {
