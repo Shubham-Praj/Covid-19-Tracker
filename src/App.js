@@ -10,7 +10,8 @@ function App() {
   const [countryCity, setcountryCity] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
   const [countries, setcountries] = useState([]);
-  const [cities, setcities] = useState([]);
+  //const [cities, setcities] = useState([]);
+  const [chartTitle, setchartTitle] = useState('India');
 
   useEffect(() => {
     const cc = [];
@@ -31,14 +32,14 @@ function App() {
       }
       setcountryCity(cc);
       setcountries(CountriesList);
-      setcities(CitiesList);
+      //setcities(CitiesList);
     }
 
     async function getCovidData() {
       const res = await fetch(`${process.env.REACT_APP_NEWS_URL}`);
       const data = await res.json();
       setcovidData(data);
-      setsearchedValue(data.India.Maharashtra);
+      setsearchedValue(data.India.All);
       getCountryCityList(data);
     }
 
@@ -47,26 +48,32 @@ function App() {
 
   async function setSelectedData(clickedValue) {
     console.log(clickedValue);
-    //console.log(covidData[clickedValue].All);
-
     console.log(countries.includes(clickedValue));
+
+    setchartTitle(clickedValue);
 
     if (countries.includes(clickedValue)) {
       setsearchedValue(covidData[clickedValue].All);
       console.log(covidData[clickedValue].All);
     } else {
-      for (let i in countries) {
-        for (let j in cities) {
-          console.log(cities[j]);
+      console.log("in else");
+      for (let i in covidData) {
+        let gotCityFlag = false;
 
-          if (cities[j] === clickedValue) {
-            // setsearchedValue(covidData[clickedValue][cities[j]]);
-            console.log("else", covidData[countries[i]]);
-            // console.log( "else" ,covidData[countries[i]].cities[j]);
+        for (let j in covidData[i]) {
+          console.log(i, j);
+          if (j === clickedValue) {
+            console.log(j === clickedValue);
+            console.log(covidData[i][j]);
+            setsearchedValue(covidData[i][j]);
+            gotCityFlag = true;
             break;
           }
         }
-        break;
+
+        if (gotCityFlag === true) {
+          break;
+        }
       }
     }
   }
@@ -81,7 +88,6 @@ function App() {
         return val;
       }
     });
-
     setfilteredData(textFiltered);
   }
 
@@ -98,7 +104,7 @@ function App() {
         clearFilteredData={clearFilteredData}
         setSelectedData={setSelectedData}
       />
-      <ChartSection data={searchedValue} />
+      <ChartSection data={searchedValue} title={chartTitle} />
     </div>
   );
 }

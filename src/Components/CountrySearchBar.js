@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../index.css";
 
 function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSelectedData }) {
@@ -13,6 +13,7 @@ function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSel
 
   //Clear the Collection after a selection
   function selectOption(e) {
+    console.log("Sadsadsadsad");
     setsearchText(e.target.innerText);
     setSelectedData(e.target.innerText);
     clearFilteredData();
