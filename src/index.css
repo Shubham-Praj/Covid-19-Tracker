@@ -26,10 +26,28 @@
   position: absolute;
   margin-top: 3rem;
   padding: 5px;
-  background-color: aqua;
+  border: 2px;
+  background-color: white;
   overflow-y: scroll;
   max-height: 25%;
+  box-shadow: inset 0px 0px 0px 1px #d3d3d3;
 }
+
+.search-recommendation-div::-webkit-scrollbar{
+  width: 8px;
+  background-color:rgb(235, 235, 235);
+  border-radius: 10px;
+}
+
+.search-recommendation-div::-webkit-scrollbar-thumb{
+  width: 5px;
+  background-color: rgb(202, 202, 202);
+  border-radius: 10px;
+}
+
+
+
+
 
 .search-results {
   padding: 5px;

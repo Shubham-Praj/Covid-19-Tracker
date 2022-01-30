@@ -1,14 +1,8 @@
 import React from "react";
 import "../index.css";
-import { FaExternalLinkAlt } from "react-icons/fa";
 
 function DataDiv({ data, title }) {
-  // const geogleLocation = `${
-  //   process.env.REACT_APP_GOOGLE_URL
-  // }/@${data.lat},${data.long},7.5z `;
-
-  const geogleLocation = `${process.env.REACT_APP_GOOGLE_URL}/@23.57,71.54,7.5z `;
-
+  
   return (
     <div className="dataDiv">
       <div className="dataHeaders">
@@ -47,20 +41,6 @@ function DataDiv({ data, title }) {
             <h4>{data.location ? data.location : "N/A"}</h4>
           </div>
         </div>
-      </div>
-      <div className="googleMapLinkDiv">
-        {data.lat && (
-          <a
-            className="viewOnMap"
-            href={geogleLocation}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View on Map
-          </a>
-        )}
-        <FaExternalLinkAlt />
-
       </div>
     </div>
   );
