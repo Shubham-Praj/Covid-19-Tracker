@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "../index.css";
 
-function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSelectedData }) {
+function CountrySearchBar({
+  filteredData,
+  filterList,
+  clearFilteredData,
+  setSelectedData,
+}) {
   const [searchText, setsearchText] = useState("");
-
 
   //Filter on Typing
   function assignSearchText(text) {
@@ -13,7 +17,6 @@ function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSel
 
   //Clear the Collection after a selection
   function selectOption(e) {
-    console.log("Sadsadsadsad");
     setsearchText(e.target.innerText);
     setSelectedData(e.target.innerText);
     clearFilteredData();
@@ -42,18 +45,17 @@ function CountrySearchBar({ filteredData, filterList, clearFilteredData , setSel
           <div className="search-recommendation-div">
             {filteredData
               .filter((val) => {
-                if (searchText === "") {
-                  return val;
-                } else if (
-                  val.toLowerCase().includes(searchText.toLowerCase())
-                ) {
-                  return val;
-                }
+                return val.toLowerCase().includes(searchText.toLowerCase())
+                  ? val
+                  : "";
               })
               .map((val, key) => {
                 return (
                   <div className="search-results" key={key}>
-                    <h5 style={{ marginBottom: "0px" ,cursor : "pointer" }} onClick={selectOption}>
+                    <h5
+                      style={{ marginBottom: "0px", cursor: "pointer" }}
+                      onClick={selectOption}
+                    >
                       {val}
                     </h5>
                   </div>

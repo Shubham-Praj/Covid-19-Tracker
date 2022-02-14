@@ -4,89 +4,59 @@ import CovidTrackerHeader from "./Components/CovidTrackerHeader";
 import CountrySearchBar from "./Components/CountrySearchBar";
 import ChartSection from "./Components/ChartSection";
 
+const flatJSONData = {};
+
 function App() {
-  const [covidData, setcovidData] = useState([]);
   const [searchedValue, setsearchedValue] = useState([]);
   const [countryCity, setcountryCity] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
-  const [countries, setcountries] = useState([]);
-  //const [cities, setcities] = useState([]);
-  const [chartTitle, setchartTitle] = useState('India');
+  const [chartTitle, setchartTitle] = useState("India");
 
-  useEffect(() => {
+  async function nestedJSONToflatJSONData(nestedJSON) {
     const cc = [];
-    const CountriesList = [];
-    const CitiesList = [];
-    //Get Country and City list from covid data to create recommendation list
-    async function getCountryCityList(data) {
-      for (let i in data) {
-        cc.push(i);
-        CountriesList.push(i);
 
-        for (let j in data[i]) {
-          if (j !== "All") {
-            cc.push(j);
-            CitiesList.push(j);
-          }
+    for (let key in nestedJSON) {
+      flatJSONData[key] = nestedJSON[key].All;
+      cc.push([key][0]);
+      for (let subData in nestedJSON[key]) {
+        if (subData !== "All") {
+          flatJSONData[subData] = nestedJSON[key][subData];
+          cc.push([subData][0]);
         }
       }
-      setcountryCity(cc);
-      setcountries(CountriesList);
-      //setcities(CitiesList);
     }
 
+    setcountryCity(cc);
+    console.log(flatJSONData);
+    console.log(cc);
+  }
+
+  useEffect(() => {
     async function getCovidData() {
       const res = await fetch(`${process.env.REACT_APP_NEWS_URL}`);
       const data = await res.json();
-      setcovidData(data);
+      await nestedJSONToflatJSONData(data);
       setsearchedValue(data.India.All);
-      getCountryCityList(data);
     }
 
     getCovidData();
   }, []);
 
   async function setSelectedData(clickedValue) {
-    console.log(clickedValue);
-    console.log(countries.includes(clickedValue));
-
     setchartTitle(clickedValue);
-
-    if (countries.includes(clickedValue)) {
-      setsearchedValue(covidData[clickedValue].All);
-      console.log(covidData[clickedValue].All);
-    } else {
-      console.log("in else");
-      for (let i in covidData) {
-        let gotCityFlag = false;
-
-        for (let j in covidData[i]) {
-          console.log(i, j);
-          if (j === clickedValue) {
-            console.log(j === clickedValue);
-            console.log(covidData[i][j]);
-            setsearchedValue(covidData[i][j]);
-            gotCityFlag = true;
-            break;
-          }
-        }
-
-        if (gotCityFlag === true) {
-          break;
-        }
-      }
-    }
+    console.log(clickedValue);
+    setsearchedValue(flatJSONData[clickedValue]);
   }
 
   //FilterList is function to filter country and city list
   //Filtered data is array where all the filtered data based on text is created
   function filterList(searchText) {
     const textFiltered = countryCity.filter((val) => {
-      if (searchText === "") {
-        return val;
-      } else if (val.toLowerCase().includes(searchText.toLowerCase())) {
-        return val;
-      }
+      return searchText === ""
+        ? val
+        : val.toLowerCase().includes(searchText.toLowerCase())
+        ? val
+        : null;
     });
     setfilteredData(textFiltered);
   }
