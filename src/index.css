@@ -5,10 +5,9 @@
 }
 
 .search-component-div {
-  /* padding: 5px;
-  margin: 5px; */
   display: flex;
-  /* width: 50%; */
+  width: 50%;
+  flex-direction: column;
 }
 
 .search-box {
@@ -44,10 +43,6 @@
   background-color: rgb(202, 202, 202);
   border-radius: 10px;
 }
-
-
-
-
 
 .search-results {
   padding: 5px;
@@ -131,4 +126,36 @@
   margin-right: 2%;
   color: rgba(4, 171, 255, 1);
   text-decoration: none;
+}
+
+
+@media (max-width : 1280px){
+
+  .chartSection{
+    background-color: aqua ;
+    padding: 0px 10px;
+  }
+
+  .search-component-div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0px 10px;
+  }
+
+
+
+  .SectionHolderDiv{
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .dataHeaders{
+    padding: 5px 0px;
+  }
+  
+  .subHeadersDiv{
+    padding: 5px 0px;
+  }
+
 }

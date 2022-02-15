@@ -24,14 +24,13 @@ function CountrySearchBar({
 
   return (
     <div className="search-div">
-      <div style={{ display: "flex", width: "50%", flexDirection: "column" }}>
         <div className="search-component-div">
           <input
             onChange={(e) => {
               assignSearchText(e.target.value);
             }}
             className="search-box"
-            placeholder="Search Countries or States e.g. India, Mumbai"
+            placeholder="Search Countries or States e.g. India, Goa"
             value={searchText}
             onBlur={() => {
               setTimeout(() => {
@@ -63,7 +62,6 @@ function CountrySearchBar({
               })}
           </div>
         )}
-      </div>
     </div>
   );
 }
