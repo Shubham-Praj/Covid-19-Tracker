@@ -20,7 +20,7 @@
 }
 
 .search-recommendation-div {
-  width: inherit;
+  width: 50%;
   flex-direction: column;
   position: absolute;
   margin-top: 3rem;

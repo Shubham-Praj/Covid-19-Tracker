@@ -32,11 +32,11 @@ function CountrySearchBar({
             className="search-box"
             placeholder="Search Countries or States e.g. India, Goa"
             value={searchText}
-            onBlur={() => {
-              setTimeout(() => {
-                clearFilteredData();
-              }, 100);
-            }}
+            // onBlur={() => {
+            //   setTimeout(() => {
+            //     clearFilteredData();
+            //   }, 100);
+            // }}
           />
         </div>
 
